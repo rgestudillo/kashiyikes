@@ -1,53 +1,45 @@
-<!DOCTYPE html>
 <html>
   <head>
-    <title>Coin Toss</title>
+    <title>Flip a Coin</title>
     <style>
-      /* Add some styling to the page */
       body {
         text-align: center;
-        background-color: lightblue;
+        font-family: sans-serif;
+      }
+      button {
+        font-size: 24px;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
       }
       #coin {
-        /* This is the coin image that we will animate */
-        width: 200px;
         height: 200px;
-        position: relative;
-        top: 50px;
-        animation: spin 1s linear infinite;
+        margin: 20px auto;
+        transition: all 0.5s ease-in-out;
       }
-      /* This is the animation for the coin */
-      @keyframes spin {
-        from {
-          transform: rotate(0deg);
-        }
-        to {
-          transform: rotate(360deg);
-        }
+      #coin.heads {
+        transform: rotateY(0deg);
+      }
+      #coin.tails {
+        transform: rotateY(180deg);
       }
     </style>
   </head>
   <body>
-    <h1>KASHIYIKES' Coin Toss</h1>
-    <button onclick="tossCoin()">Toss Coin</button>
-    <p id="result"></p>
-    <img id="coin" src="coin.png" alt="coin">
-
+    <h1>Flip a Coin</h1>
+    <button onclick="flipCoin()">Flip the Coin</button>
+    <img id="coin" src="https://www.usmint.gov/wp-content/uploads/2022/01/obverse_proof_2022.png" />
     <script>
-      function tossCoin() {
-        // Generate a random number between 0 and 1.
-        var randomNumber = Math.random();
-
-        // Use the random number to determine the result of the coin toss.
-        var result;
-        if (randomNumber < 0.5) {
-          result = "Heads";
+      function flipCoin() {
+        var coin = document.getElementById("coin");
+        var random = Math.random();
+        if (random < 0.5) {
+          coin.classList.remove("tails");
+          coin.classList.add("heads");
         } else {
-          result = "Tails";
+          coin.classList.remove("heads");
+          coin.classList.add("tails");
         }
-
-        // Display the result on the page.
-        document.getElementById("result").innerHTML = result;
       }
     </script>
   </body>
