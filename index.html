@@ -31,14 +31,16 @@
   <body>
     <h1>Flip a Coin</h1>
     <div id="coin"></div>
+    <div id="result"> </div>
     <button onclick="flipCoin()">Flip</button>
     <script>
       // javascript for coin flipping animation goes here
       function flipCoin() {
         // randomly choose heads or tails
-        var flip = flip = Math.random() < 0.5 ? "heads" : "tails";
+        var flip = Math.random() < 0.5 ? "heads" : "tails";
         // update the class of the coin div to show the result of the flip
         var coin = document.getElementById("coin");
+        var result = "heads";
         coin.className = flip;
       }
     </script>
