@@ -1,56 +1,43 @@
-<!DOCTYPE html>
 <html>
-
-<head>
-    <title>Flip-a-Coin</title>
+  <head>
+    <title>Flip a Coin</title>
     <style>
-        /* Add some styling for the coin */
-        .coin {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background-color: #ccc;
-            animation: flip-coin 1s linear;
-        }
-
-        /* Add the animation */
-        @keyframes flip-coin {
-            0% {
-                transform: rotateY(0deg);
-            }
-            50% {
-                transform: rotateY(180deg);
-            }
-            100% {
-                transform: rotateY(360deg);
-            }
-        }
+      /* styling for website goes here */
+      body {
+        background-color: #f0f0f0;
+        text-align: center;
+        font-family: Arial, sans-serif;
+      }
+      #coin {
+        margin: auto;
+        width: 200px;
+        height: 200px;
+        border-radius: 100%;
+        background-color: #333;
+        transition: all 0.5s;
+      }
+      #coin.heads {
+        background-color: #eee;
+        transform: rotateY(0deg);
+      }
+      #coin.tails {
+        transform: rotateY(180deg);
+      }
     </style>
-</head>
-
-<body>
-    <!-- Add a button to trigger the coin flip -->
-    <button onclick="flipCoin()">Flip coin</button>
-
-    <!-- Add an element to display the result of the coin flip -->
-    <div id="result"></div>
-
+  </head>
+  <body>
+    <h1>Flip a Coin</h1>
+    <div id="coin"></div>
+    <button onclick="flipCoin()">Flip</button>
     <script>
-        // Create a function to simulate a coin flip
-        function flipCoin() {
-            // Generate a random number between 0 and 1
-            var result = Math.random();
-
-            // If the number is less than 0.5, display "Heads"
-            if (result < 0.5) {
-                document.getElementById("result").innerHTML = "Heads";
-            }
-            // Otherwise, display "Tails"
-            else {
-                document.getElementById("result").innerHTML = "Tails";
-            }
-        }
+      // javascript for coin flipping animation goes here
+      function flipCoin() {
+        // randomly choose heads or tails
+        var flip = Math.random() < 0.5 ? "heads" : "tails";
+        // update the class of the coin div to show the result of the flip
+        var coin = document.getElementById("coin");
+        coin.className = flip;
+      }
     </script>
-</body>
-
+  </body>
 </html>
