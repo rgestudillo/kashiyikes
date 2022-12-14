@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Coin Toss</title>
+    <style>
+      /* Add some styling to the page */
+      body {
+        text-align: center;
+        background-color: lightblue;
+      }
+      #coin {
+        /* This is the coin image that we will animate */
+        width: 200px;
+        height: 200px;
+        position: relative;
+        top: 50px;
+        animation: spin 1s linear infinite;
+      }
+      /* This is the animation for the coin */
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Coin Toss</h1>
+    <button onclick="tossCoin()">Toss Coin</button>
+    <p id="result"></p>
+    <img id="coin" src="coin.png" alt="coin">
+
+    <script>
+      function tossCoin() {
+        // Generate a random number between 0 and 1.
+        var randomNumber = Math.random();
+
+        // Use the random number to determine the result of the coin toss.
+        var result;
+        if (randomNumber < 0.5) {
+          result = "Heads";
+        } else {
+          result = "Tails";
+        }
+
+        // Display the result on the page.
+        document.getElementById("result").innerHTML = result;
+      }
+    </script>
+  </body>
+</html>
