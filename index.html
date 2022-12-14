@@ -1,46 +1,56 @@
+<!DOCTYPE html>
 <html>
-  <head>
+
+<head>
+    <title>Flip-a-Coin</title>
     <style>
-      .coin {
-        animation: flip 0.5s linear;
-        transform-style: preserve-3d;
-        position: relative;
-      }
-
-      .coin img {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-      }
-
-      .coin img.front {
-        z-index: 2;
-        transform: rotateY(0deg);
-      }
-
-      .coin img.back {
-        z-index: 1;
-        transform: rotateY(180deg);
-      }
-
-      @keyframes flip {
-        0% {
-          transform: rotateY(0deg);
+        /* Add some styling for the coin */
+        .coin {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #ccc;
+            animation: flip-coin 1s linear;
         }
 
-        100% {
-          transform: rotateY(180deg);
+        /* Add the animation */
+        @keyframes flip-coin {
+            0% {
+                transform: rotateY(0deg);
+            }
+            50% {
+                transform: rotateY(180deg);
+            }
+            100% {
+                transform: rotateY(360deg);
+            }
         }
-      }
     </style>
-  </head>
-  <body>
-    <h1>Flip a Coin</h1>
-    <div class="coin">
-      <img src="coin.png" class="front">
-      <img src="coin.jpg" class="back">
-    </div>
-  </body>
+</head>
+
+<body>
+    <!-- Add a button to trigger the coin flip -->
+    <button onclick="flipCoin()">Flip coin</button>
+
+    <!-- Add an element to display the result of the coin flip -->
+    <div id="result"></div>
+
+    <script>
+        // Create a function to simulate a coin flip
+        function flipCoin() {
+            // Generate a random number between 0 and 1
+            var result = Math.random();
+
+            // If the number is less than 0.5, display "Heads"
+            if (result < 0.5) {
+                document.getElementById("result").innerHTML = "Heads";
+            }
+            // Otherwise, display "Tails"
+            else {
+                document.getElementById("result").innerHTML = "Tails";
+            }
+        }
+    </script>
+</body>
+
 </html>
