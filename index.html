@@ -31,6 +31,7 @@
   <body>
     <h1>Flip a Coin</h1>
     <div id="coin"></div>
+    <p id="result"></p>
     <button onclick="flipCoin()">Flip</button>
     <script>
       // javascript for coin flipping animation goes here
@@ -40,6 +41,9 @@
         // update the class of the coin div to show the result of the flip
         var coin = document.getElementById("coin");
         coin.className = flip;
+        // update the result element with the result of the flip
+        var result = document.getElementById("result");
+        result.innerHTML = flip.charAt(0).toUpperCase() + flip.slice(1);
       }
     </script>
   </body>
