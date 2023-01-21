@@ -34,7 +34,7 @@
     flipBtn.addEventListener("click", () => {
         kashiSelection = document.querySelector('input[name="kashi"]:checked');
         alizaSelection = document.querySelector('input[name="aliza"]:checked');
-
+        document.querySelector("#winner").textContent = ``;
         let i = Math.floor(Math.random() * 2);
         coin.style.animation = "none";
 
