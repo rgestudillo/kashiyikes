@@ -152,8 +152,6 @@
         alizaRadioButtons.forEach(button => {
             button.checked = false;
         });
-        aliza = 0;
-        kashi = 0;
         document.querySelector("#kashiscore").textContent = `${kashi}`;  
         document.querySelector("#alizascore").textContent = `${aliza}`;           
     });
