@@ -1,159 +1,146 @@
-    console.log("JavaScript code started");
-   
-    let coin = document.querySelector(".coin");
-    let flipBtn = document.querySelector("#flip-button");
-    let resetBtn = document.querySelector("#reset-button");
-    let winner = 'Alizadasda';
-    let kashiSelection;
-    let alizaSelection;
-    let kashi = 0;
-    let aliza = 0;
-    fetch("/scores")
-    .then(response => response.json())
-    .then(data => {
-        kashi = data.kashi;
-        aliza = data.aliza;
-        document.querySelector("#kashiscore").textContent = `${kashi}`;
-        document.querySelector("#alizascore").textContent = `${aliza}`;   
-    })
-        .catch(error => {
-        console.error("Error getting scores: ", error);
-    });
+// Initialize Firebase
+var firebaseConfig = {
+  apiKey: "AIzaSyDE3gk7rKa5ymYc-gEqQqjKIs6m9hgT2Dc",
+  authDomain: "kashiyikes.firebaseapp.com",
+  databaseURL: "https://kashiyikes-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "kashiyikes",
+  storageBucket: "kashiyikes.appspot.com",
+  messagingSenderId: "46660759919",
+  appId: "1:46660759919:web:fd678a51447dc96c9f789a",
+  measurementId: "G-YLN3XMQJ1Z"
+  };
 
-    let kashiHeads = document.querySelector('input[name="kashi"][value="Heads"]');
-    let kashiTails = document.querySelector('input[name="kashi"][value="Tails"]');
-    let alizaHeads = document.querySelector('input[name="aliza"][value="Heads"]');
-    let alizaTails = document.querySelector('input[name="aliza"][value="Tails"]');
+  firebase.initializeApp(firebaseConfig);
+  
 
-    kashiHeads.addEventListener("change", () => {
-        alizaTails.checked = true;
-    });
-
-    kashiTails.addEventListener("change", () => {
-        alizaHeads.checked = true;
-    });
+  const coin = document.querySelector('.coin');
+  const flipButton = document.getElementById("flip-button");
+  // Reference to the scores in the database
+  var scoresRef = firebase.database().ref("scores");
+  
+  // Get references to HTML elements
+  var kashiScoreSpan = document.getElementById("kashiscore");
+  var alizaScoreSpan = document.getElementById("alizascore");
+  var resetButton = document.getElementById("reset-button");
+  var winnerPara = document.getElementById("winner");
 
 
-    alizaHeads.addEventListener("change", () => {
-        kashiTails.checked = true;
-    });
-      
-    alizaTails.addEventListener("change", () => {
-        kashiHeads.checked = true;
-    });
+  let kashiHeads = document.querySelector('input[name="kashi"][value="Heads"]');
+  let kashiTails = document.querySelector('input[name="kashi"][value="Tails"]');
+  let alizaHeads = document.querySelector('input[name="aliza"][value="Heads"]');
+  let alizaTails = document.querySelector('input[name="aliza"][value="Tails"]');
+
+  kashiHeads.addEventListener("change", () => {
+      alizaTails.checked = true;
+  });
+
+  kashiTails.addEventListener("change", () => {
+      alizaHeads.checked = true;
+  });
 
 
-      
-
-    flipBtn.addEventListener("click", () => {
-        kashiSelection = document.querySelector('input[name="kashi"]:checked');
-        alizaSelection = document.querySelector('input[name="aliza"]:checked');
-        document.querySelector("#winner").textContent = ``;
-        let i = Math.floor(Math.random() * 2);
-        coin.style.animation = "none";
-
-
-        if(kashiSelection == null || alizaSelection == null){
-            document.querySelector("#winner").textContent = `Please select Heads or Tails`;
-        } else{
-
-            if (i) {
-                setTimeout(function () {
-                    coin.style.animation = "spin-heads 3s forwards";
-                }, 100);
-                if(kashiSelection.value == 'Heads'){
-                    winner = 'Kashi';
-                    kashi++;
-                }else{
-                    winner = 'Aliza';
-                    aliza++;
-                }
-            } else {
-                setTimeout(function () {
-                    coin.style.animation = "spin-tails 3s forwards";
-                }, 100);
-                if(kashiSelection.value == 'Tails'){
-                    winner = 'Kashi';
-                    kashi++;
-                }else{
-                    winner = 'Aliza';
-                    aliza++;
-                }
-            }
-            setTimeout(updateStats, 3000);
-            disableButton();
-            updateScores();
-        }
-
-    });
-
-    function updateScores() {
-        fetch("/scores", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ kashi, aliza })
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Scores updated successfully: ', data);
-        })
-        .catch(error => {
-            console.error("Error updating scores: ", error);
-        });
-    }
-
-    function getScores() {
-        fetch("/scores")
-        .then(response => response.json())
-        .then(data => {
-            kashi = data.kashi;
-            aliza = data.aliza;
-            document.querySelector("#kashiscore").textContent = `${kashi}`;
-            document.querySelector("#alizascore").textContent = `${aliza}`;   
-        })
-            .catch(error => {
-            console.error("Error getting scores: ", error);
-        });
-    }
+  alizaHeads.addEventListener("change", () => {
+      kashiTails.checked = true;
+  });
     
+  alizaTails.addEventListener("change", () => {
+      kashiHeads.checked = true;
+  });
 
-    function updateStats() {
-        document.querySelector("#winner").textContent = `${winner} is Better`;
-        getScores();
-        // fetch("/scores.json")
-        // .then(response => response.json())
-        // .then(data => {
-        //     console.log("Scores updated successfully: ", data);
-        //     kashi = data.kashi;
-        //     aliza = data.aliza;
-        //     document.querySelector("#kashiscore").textContent = `${kashi}`;
-        //     document.querySelector("#alizascore").textContent = `${aliza}`;   
-        // });  
-    }
 
-    function disableButton() {
-        flipBtn.disabled = true;
+
+
+// Get the initial scores from the database
+scoresRef.on("value", function(snapshot) {
+    kashiScoreSpan.textContent = snapshot.val().kashi;
+    alizaScoreSpan.textContent = snapshot.val().aliza;
+});
+  
+
+
+let currentFace = "heads";
+let winner;
+// Function to flip the coin and update scores
+flipButton.addEventListener("click", function() {
+
+    // Get the choice of each player
+
+    var kashiChoice = document.querySelector('input[name="kashi"]:checked').value;
+    var alizaChoice = document.querySelector('input[name="aliza"]:checked').value;
+
+    if (kashiChoice === null || alizaChoice === null) {
+        document.querySelector("#winner").textContent = `Please select Heads or Tails`;
+    }else{
+  
+        // Flip the coin to determine the result
+        var result = Math.random() < 0.5 ? "Heads" : "Tails";
+
         setTimeout(function () {
-            flipBtn.disabled = false;
-        }, 3000);
+            if (currentFace === "heads") {
+                coin.style.animation = "spin-tails 3s forwards";
+                currentFace = "tails";
+            } else {
+                coin.style.animation = "spin-heads 3s forwards";
+                currentFace = "heads";
+            }
+        }, 100);
+
+        console.log(result);
+
+
+        // Update the scores based on the result
+        if (result === kashiChoice) {
+            setTimeout(function () {
+                kashiScoreSpan.textContent = parseInt(kashiScoreSpan.textContent) + 1;
+                winner = 'Kashi';
+            }, 3000);
+        }
+        if (result === alizaChoice) {
+            setTimeout(function () {
+                alizaScoreSpan.textContent = parseInt(alizaScoreSpan.textContent) + 1;
+                winner = 'Aliza';
+            }, 3000);
+        }
+    
+        // Update the scores in the database
+
+        setTimeout(updateStats, 3000);
+        disableButton();
+
     }
 
-    resetBtn.addEventListener("click", () => {
-        coin.style.animation = "none";
-        document.querySelector("#winner").textContent = ``;
-    
-        let kashiRadioButtons = document.querySelectorAll('input[name="kashi"]');
-        let alizaRadioButtons = document.querySelectorAll('input[name="aliza"]');
-        kashiRadioButtons.forEach(button => {
-            button.checked = false;
-        });
-        alizaRadioButtons.forEach(button => {
-            button.checked = false;
-        });
-        document.querySelector("#kashiscore").textContent = `${kashi}`;  
-        document.querySelector("#alizascore").textContent = `${aliza}`;           
-    });
-    
 
+});
+  
+  // Function to reset the scores
+resetButton.addEventListener("click", function() {
+    kashiScoreSpan.textContent = 0;
+    alizaScoreSpan.textContent = 0;
+    winnerPara.textContent = "";
+
+    // Reset the scores in the database
+    scoresRef.set({
+        kashi: 0,
+        aliza: 0
+    });
+});
+  
+
+
+
+
+function updateStats() {
+    document.querySelector("#winner").textContent = `${winner} is Better`;
+    scoresRef.set({
+        kashi: kashiScoreSpan.textContent,
+        aliza: alizaScoreSpan.textContent
+    });
+    // getScores();
+}
+
+function disableButton() {
+    flipButton.disabled = true;
+    setTimeout(function () {
+        flipButton.disabled = false;
+    }, 3000);
+}
