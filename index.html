@@ -7,10 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Toss Coin</title>
+    <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-auth.js"></script>
 </head>
 
 <body>
-
+    <div id="recaptcha-container"></div>
     <div class="container">
         <div class="scores">
             <p id="scorers">  
@@ -48,8 +51,7 @@
         <p id="winner">
         </p>
     </div>
-    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-database.js"></script>
+
     <script src="index.js"></script>
 </body>
 
