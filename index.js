@@ -70,39 +70,39 @@ flipBtn.addEventListener("click", () => {
     if(kashiSelection == null || alizaSelection == null){
         document.querySelector("#winner").textContent = `Please select Heads or Tails`;
     } else{
-        if (i) {
-            setTimeout(function () {
-                coin.style.animation = "spin-heads 3s forwards";
-            }, 100);
-
-            if(kashiSelection.value == 'Heads'){
-                winner = 'Kashi';
-            }else{
-                winner = 'Aliza';
-            }
-
-        } else {
-            setTimeout(function () {
-                coin.style.animation = "spin-tails 3s forwards";
-            }, 100);
-            if(kashiSelection.value == 'Tails'){
-                winner = 'Kashi';
-            }else{
-                winner = 'Aliza';
-            }
-        } 
-
-        // if(kashiSelection.value == 'Heads'){
+        // if (i) {
         //     setTimeout(function () {
         //         coin.style.animation = "spin-heads 3s forwards";
         //     }, 100);
-        //     winner = 'Kashi';
-        // }else{
+
+        //     if(kashiSelection.value == 'Heads'){
+        //         winner = 'Kashi';
+        //     }else{
+        //         winner = 'Aliza';
+        //     }
+
+        // } else {
         //     setTimeout(function () {
         //         coin.style.animation = "spin-tails 3s forwards";
         //     }, 100);
-        //     winner = 'Kashi';
-        // }
+        //     if(kashiSelection.value == 'Tails'){
+        //         winner = 'Kashi';
+        //     }else{
+        //         winner = 'Aliza';
+        //     }
+        // } 
+
+        if(kashiSelection.value == 'Heads'){
+            setTimeout(function () {
+                coin.style.animation = "spin-heads 3s forwards";
+            }, 100);
+            winner = 'Kashi';
+        }else{
+            setTimeout(function () {
+                coin.style.animation = "spin-tails 3s forwards";
+            }, 100);
+            winner = 'Kashi';
+        }
 
         setTimeout(updateStats, 3000);
       
